@@ -5,6 +5,8 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
+import User from './pages/User'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 
 
@@ -14,9 +16,18 @@ function App() {
 
   return (
     <>
-      <Navbar></Navbar>
-      <Hero></Hero>
-      <Footer></Footer>
+
+      <Router>
+        <Routes>
+          {/* Define a route for the shortened URL */}
+          <Route path="/" element={<>
+            <Navbar></Navbar>
+            <Hero></Hero>
+            <Footer></Footer>
+          </>} />
+          <Route path="/:key" element={<User></User>} />
+        </Routes>
+      </Router>
     </>
   )
 }

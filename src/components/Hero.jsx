@@ -18,7 +18,7 @@ const Hero = () => {
             setError(false)
         }
        if(validateUrl(url)){
-        const response = await axios.post("http://localhost:3000/shortenurl" ,{url : url});
+        const response = await axios.post("https://urlshortner-backend-ono5.onrender.com/shortenurl" ,{url : url});
         if(response.data.status){
             setUrl(response.data.url);
             setShorted(true);
