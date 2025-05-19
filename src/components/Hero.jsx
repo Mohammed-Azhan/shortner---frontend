@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompass, faCopy, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
+import Loader from './Loader';
 import axios from 'axios';
 
 const Hero = () => {
     const [clipborad, setClipboard] = useState(false);
     const [shorted, setShorted] = useState(false);
     const [error, setError] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [url, setUrl] = useState("");
     const handleChange = (e) => {
         setUrl(e.target.value);
@@ -18,8 +20,10 @@ const Hero = () => {
             setError(false)
         }
        if(validateUrl(url)){
+        setLoader(true);
         const response = await axios.post("https://urlshortner-backend-ono5.onrender.com/shortenurl" ,{url : url});
         if(response.data.status){
+            setLoader(false);
             setUrl(response.data.url);
             setShorted(true);
         }
@@ -56,6 +60,8 @@ const Hero = () => {
     }
    
   return (
+   <>
+   {loader ? <Loader></Loader> : null}
     <div className='parent bg-black h-[100vh] flex items-center justify-center'>
       <div className='elements mx-auto overflow-x-auto'>
         <div className="box w-[600px] h-[500px] m-12 rounded-2xl dark:bg-gray-900">
@@ -94,6 +100,7 @@ const Hero = () => {
         </div>
       </div>
     </div>
+   </>
   )
 }
 
